@@ -1,0 +1,79 @@
+﻿using Microsoft.Owin;
+using Microsoft.Owin.Security.OAuth;
+using Owin;
+using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using System.Web.Http;
+using Himberry.Users.Storage.Managers;
+using Himberry.Service.Configurations;
+<<<<<<< HEAD
+using Himberry.Users.Storage.Models;
+using Himberry.DepencyConfigurator;
+=======
+using Himbarry.Users.Storage.Interfaces.Models;
+//using Himberry.DepencyConfigurator;
+>>>>>>> create Users.Storage.Interfaces
+
+[assembly: OwinStartup(typeof(Himberry.Service.Startup))]
+namespace Himberry.Service
+{
+    public sealed class Startup
+    {
+        public void Configuration(IAppBuilder app)
+        {
+            HttpConfiguration config = new HttpConfiguration();
+            ConfigurationOAuth(app);
+            WebApiConfig.Register(config);
+            // AutofacConfigurator.ConfigureContainer(config);
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+            app.UseWebApi(config);
+        }
+
+        public void ConfigurationOAuth(IAppBuilder app)
+        {
+            OAuthAuthorizationServerOptions OAuthServerOption = new OAuthAuthorizationServerOptions()
+            {
+                AllowInsecureHttp = true,
+                TokenEndpointPath = new PathString("/login"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
+                Provider = new SimpleAuthorizationServerProvider()
+            };
+
+            app.UseOAuthAuthorizationServer(OAuthServerOption);
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+        }
+    }
+
+    public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
+    {
+        public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
+        {
+            context.Validated();
+        }
+
+        public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
+        {
+
+            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+
+            using (UserDataManager _repo = new UserDataManager(HimberryDataBaseConfig.UserDbConnectionString))
+            {
+                UserDataModel user = await _repo.FindUser(context.UserName, context.Password);
+
+                if (user == null)
+                {
+                    context.SetError("invalid_grant", "The user name or password is incorrect.");
+                    return;
+                }
+            }
+
+            var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+            identity.AddClaim(new Claim("sub", context.UserName));
+            identity.AddClaim(new Claim("role", "user"));
+
+            context.Validated(identity);
+
+        }
+    }
+}

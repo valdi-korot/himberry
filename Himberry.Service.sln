@@ -5,6 +5,34 @@ VisualStudioVersion = 15.0.26228.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Himberry.Service", "Himberry.Service\Himberry.Service.csproj", "{D9C1FC2D-F43F-490C-BE4D-185C74A763B5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{E54EE968-C776-4B69-99D0-4B19349A5EDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Himberry.Configurator", "Himberry.Configurator\Himberry.Configurator.csproj", "{BBA60D9A-CA52-42C1-9865-683D5EB811D0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UserProvider", "UserProvider", "{52443E1D-D7E6-4B3C-9DF2-0BF2D4DB5675}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Storage", "Storage", "{3F0F17A8-B990-4188-9213-74C03694BF97}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Provider", "Provider", "{566EBF43-7833-4960-845C-924663FB92C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Himberry.Users.Storage", "Libraries\Himberry.Users.Storage\Himberry.Users.Storage.csproj", "{FA375363-2B92-42B0-AFA3-4ADF56A8EFC2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Himberry.Service.Configurations", "Himberry.Service.Configurations\Himberry.Service.Configurations.csproj", "{4F6EDE9B-C25B-49BC-B6D9-F8C598ABFE69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Himbarry.Users.Storage.Interfaces", "Libraries\Himbarry.Users.Storage.Interfaces\Himbarry.Users.Storage.Interfaces.csproj", "{78256100-6E8B-4D3E-A813-1512CA1ADA2A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{4E6E7410-7B6E-4E70-BA00-5B398E8C6B1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Himberry.Common", "Libraries\Himberry.Common\Himberry.Common.csproj", "{CB0727F4-36F0-42D5-BF0D-FA4C7CF61991}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Himbarry.Users.Provider.Interfaces", "Libraries\Himbarry.Users.Provider.Interfaces\Himbarry.Users.Provider.Interfaces.csproj", "{6A5250A5-4461-4CE4-83B9-6167A6AC2B2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Himbarry.Users.Provider", "Libraries\Himbarry.Users.Provider\Himbarry.Users.Provider.csproj", "{87EFF32F-6A9D-4D30-93E0-BF54F95A9285}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Himberry.Common.Data", "Libraries\Himberry.Common.Data\Himberry.Common.Data.csproj", "{11698481-3A38-49C1-9D87-2F944D178D5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Himberry.Service.Contracts", "Libraries\Himberry.Service.Contracts\Himberry.Service.Contracts.csproj", "{49929421-A247-4E06-94DE-BFD7E523F5C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,8 +43,59 @@ Global
 		{D9C1FC2D-F43F-490C-BE4D-185C74A763B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9C1FC2D-F43F-490C-BE4D-185C74A763B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9C1FC2D-F43F-490C-BE4D-185C74A763B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBA60D9A-CA52-42C1-9865-683D5EB811D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBA60D9A-CA52-42C1-9865-683D5EB811D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBA60D9A-CA52-42C1-9865-683D5EB811D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBA60D9A-CA52-42C1-9865-683D5EB811D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA375363-2B92-42B0-AFA3-4ADF56A8EFC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA375363-2B92-42B0-AFA3-4ADF56A8EFC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA375363-2B92-42B0-AFA3-4ADF56A8EFC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA375363-2B92-42B0-AFA3-4ADF56A8EFC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F6EDE9B-C25B-49BC-B6D9-F8C598ABFE69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F6EDE9B-C25B-49BC-B6D9-F8C598ABFE69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F6EDE9B-C25B-49BC-B6D9-F8C598ABFE69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F6EDE9B-C25B-49BC-B6D9-F8C598ABFE69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78256100-6E8B-4D3E-A813-1512CA1ADA2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78256100-6E8B-4D3E-A813-1512CA1ADA2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78256100-6E8B-4D3E-A813-1512CA1ADA2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78256100-6E8B-4D3E-A813-1512CA1ADA2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB0727F4-36F0-42D5-BF0D-FA4C7CF61991}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB0727F4-36F0-42D5-BF0D-FA4C7CF61991}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB0727F4-36F0-42D5-BF0D-FA4C7CF61991}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB0727F4-36F0-42D5-BF0D-FA4C7CF61991}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A5250A5-4461-4CE4-83B9-6167A6AC2B2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A5250A5-4461-4CE4-83B9-6167A6AC2B2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A5250A5-4461-4CE4-83B9-6167A6AC2B2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A5250A5-4461-4CE4-83B9-6167A6AC2B2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87EFF32F-6A9D-4D30-93E0-BF54F95A9285}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87EFF32F-6A9D-4D30-93E0-BF54F95A9285}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87EFF32F-6A9D-4D30-93E0-BF54F95A9285}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87EFF32F-6A9D-4D30-93E0-BF54F95A9285}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11698481-3A38-49C1-9D87-2F944D178D5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11698481-3A38-49C1-9D87-2F944D178D5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11698481-3A38-49C1-9D87-2F944D178D5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11698481-3A38-49C1-9D87-2F944D178D5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49929421-A247-4E06-94DE-BFD7E523F5C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49929421-A247-4E06-94DE-BFD7E523F5C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49929421-A247-4E06-94DE-BFD7E523F5C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49929421-A247-4E06-94DE-BFD7E523F5C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BBA60D9A-CA52-42C1-9865-683D5EB811D0} = {E54EE968-C776-4B69-99D0-4B19349A5EDB}
+		{3F0F17A8-B990-4188-9213-74C03694BF97} = {52443E1D-D7E6-4B3C-9DF2-0BF2D4DB5675}
+		{566EBF43-7833-4960-845C-924663FB92C4} = {52443E1D-D7E6-4B3C-9DF2-0BF2D4DB5675}
+		{FA375363-2B92-42B0-AFA3-4ADF56A8EFC2} = {3F0F17A8-B990-4188-9213-74C03694BF97}
+		{4F6EDE9B-C25B-49BC-B6D9-F8C598ABFE69} = {E54EE968-C776-4B69-99D0-4B19349A5EDB}
+		{78256100-6E8B-4D3E-A813-1512CA1ADA2A} = {3F0F17A8-B990-4188-9213-74C03694BF97}
+		{CB0727F4-36F0-42D5-BF0D-FA4C7CF61991} = {4E6E7410-7B6E-4E70-BA00-5B398E8C6B1D}
+		{6A5250A5-4461-4CE4-83B9-6167A6AC2B2A} = {566EBF43-7833-4960-845C-924663FB92C4}
+		{87EFF32F-6A9D-4D30-93E0-BF54F95A9285} = {566EBF43-7833-4960-845C-924663FB92C4}
+		{11698481-3A38-49C1-9D87-2F944D178D5D} = {4E6E7410-7B6E-4E70-BA00-5B398E8C6B1D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4D84833E-2795-4A00-9ABA-FCB183CC95B7}
 	EndGlobalSection
 EndGlobal

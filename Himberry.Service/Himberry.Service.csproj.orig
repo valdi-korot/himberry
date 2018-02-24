@@ -33,7 +33,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Himberry.Service.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,9 +46,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -82,6 +80,7 @@
     <Reference Include="System.Web.Cors, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.0.0\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web.Http.Owin, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -89,7 +88,6 @@
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Xml" />
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
     </Reference>
@@ -115,9 +113,15 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Contracts\Enums\Gender.cs" />
+    <Compile Include="Contracts\UserInfoIncomingContract.cs" />
+    <Compile Include="Contracts\UserIncomingContract.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
+<<<<<<< HEAD
     <Compile Include="Extentions\IdentityExtensions.cs" />
+=======
+    <Compile Include="Controllers\UsersController.cs" />
+>>>>>>> create UserInfo
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -134,7 +138,7 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Himberry.Configurator\Himberry.Configurator.csproj">
+    <ProjectReference Include="..\Himberry.DepencyConfigurator\Himberry.DepencyConfigurator.csproj">
       <Project>{bba60d9a-ca52-42c1-9865-683d5eb811d0}</Project>
       <Name>Himberry.DepencyConfigurator</Name>
     </ProjectReference>
@@ -145,10 +149,6 @@
     <ProjectReference Include="..\Libraries\Himberry.Common\Himberry.Common.csproj">
       <Project>{CB0727F4-36F0-42D5-BF0D-FA4C7CF61991}</Project>
       <Name>Himberry.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Libraries\Himberry.Service.Contracts\Himberry.Service.Contracts.csproj">
-      <Project>{49929421-a247-4e06-94de-bfd7e523f5c1}</Project>
-      <Name>Himberry.Service.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
