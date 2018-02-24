@@ -1,5 +1,6 @@
 ﻿using Himbarry.Users.Storage.Interfaces.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace Himbarry.Users.Storage.Interfaces.Models
 {
@@ -18,6 +19,6 @@ namespace Himbarry.Users.Storage.Interfaces.Models
         public int ActiveTime { get; set; }
         public int PassiveTime { get; set; }
 
-        public TraningDataModel Traning { get; set; }
+        public List<TraningDataModel> Tranings { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -25,13 +26,16 @@ namespace Himberry.Users.Storage.Entities
         [MaxLength(20)]
         public string TypeWork { get; set; }
 
-        int SleepTime { get; set; }
-        int WorkTime { get; set; }
-        int ActiveTime { get; set; }
-        int PassiveTime { get; set; }
+        [Required]
+        public int SleepTime { get; set; }
+        [Required]
+        public int WorkTime { get; set; }
+        [Required]
+        public int ActiveTime { get; set; }
+        [Required]
+        public int PassiveTime { get; set; }
 
-        public int? Count { get; set; }
-        public TimeSpan? AvgDuration { get; set; }
-        public string Intensity { get; set; }
+        public List<TraningEntity> Tranings { get; set; }
+
     }
 }

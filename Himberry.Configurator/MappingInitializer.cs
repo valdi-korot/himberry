@@ -23,10 +23,8 @@ namespace Himberry.DepencyConfigurator
                 p.CreateMap<Gender, GenderContract>();
                 p.CreateMap<Gender, GenderData>();
                 p.CreateMap<UserInfo, UserInfoDataModel>();
-                p.CreateMap<UserInfoDataModel, UserInfoEntity>()
-                    .ForMember("Count", d => d.MapFrom(c => c.Traning != null ? c.Traning.Count : (int?)null))
-                    .ForMember("AvgDuration", d => d.MapFrom(c => c.Traning != null ? c.Traning.AvgDuration : (TimeSpan?)null))
-                    .ForMember("Intensity", d => d.MapFrom(c => c.Traning != null ? c.Traning.Intensity.ToString() : null));
+                p.CreateMap<TraningDataModel, TraningEntity>();//ForMember(f => f.Id, prop => prop.Ignore());
+                p.CreateMap<UserInfoDataModel, UserInfoEntity>();
                 p.CreateMap<User, UserDataModel>();
                 p.CreateMap<TypeWork, TypeWorkContract>();
                 p.CreateMap<Intensity, IntensityContract>();

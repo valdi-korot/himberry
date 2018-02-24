@@ -1,28 +1,31 @@
 ﻿using System;
 using Himbarry.Users.Provider.Interfaces.Enums;
 using Himbarry.Users.Provider.Interfaces.Models;
+using Himbarry.Users.Storage.Interfaces.Models;
+using Himberry.Common.Helpers;
 
 namespace Himbarry.Users.Provider.Models
 {
     public sealed class Traning : ITraning
     {
-        private int _count;
+        private DayOfWeek _dayOfWeek;
         private TimeSpan _avgDuration;
         private Intensity _intensity;
 
         internal bool isChanged = false;
 
-        public int Count
+        public string UserId { get; private set; }
+        public DayOfWeek DayOfWeek
         {
             get
             {
-                return _count;
+                return _dayOfWeek;
             }
-            set
+            internal set
             {
-                if (value != _count)
+                if (value != _dayOfWeek)
                 {
-                    _count = value;
+                    _dayOfWeek = value;
                     isChanged = true;
                 }
             }
@@ -33,7 +36,7 @@ namespace Himbarry.Users.Provider.Models
             {
                 return _avgDuration;
             }
-            set
+            internal set
             {
                 if (value != _avgDuration)
                 {
@@ -48,7 +51,7 @@ namespace Himbarry.Users.Provider.Models
             {
                 return _intensity;
             }
-            set
+            internal set
             {
                 if (value != _intensity)
                 {
@@ -57,5 +60,20 @@ namespace Himbarry.Users.Provider.Models
                 }
             }
         }
+
+        internal Traning(string userId, DayOfWeek dayOfWeek, TimeSpan avgDuration, Intensity intensity)
+        {
+            UserId = userId;
+            _dayOfWeek = dayOfWeek;
+            _avgDuration = avgDuration;
+            _intensity = intensity;
+            isChanged = true;
+        }
+
+        //public TraningDataModel Convert()
+        //{
+        //    var result = Converter.Convert<TraningDataModel, Traning>(this);
+        //    return result;
+        //}
     }
 }

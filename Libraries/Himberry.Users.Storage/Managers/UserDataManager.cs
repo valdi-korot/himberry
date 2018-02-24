@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using Himbarry.Users.Storage.Interfaces.Managers;
 using Himbarry.Users.Storage.Interfaces.Models;
 using System.Data.Entity.Migrations;
+using System.Linq;
 using Himbarry.Users.Storage.Interfaces.Exceptions;
 using Himberry.Common.Helpers;
 using Himberry.Users.Storage.Entities;
@@ -59,6 +61,17 @@ namespace Himberry.Users.Storage.Managers
         {
             var userInfoEnity = Converter.Convert<UserInfoEntity, UserInfoDataModel>(userInfoDataModel);
             _authContext.Set<UserInfoEntity>().AddOrUpdate(userInfoEnity);
+            var userInfo = _authContext.UserInfo.Include(p => p.Tranings).FirstOrDefault(p => p.UserId.Equals(userInfoEnity.UserId, StringComparison.InvariantCultureIgnoreCase));
+            if (userInfo != null)
+            {
+                var obsoletedTrainings = userInfo.Tranings.Where(p => !userInfoEnity.Tranings.Any(t => t.DayOfWeek == p.DayOfWeek)).ToList();
+                if (obsoletedTrainings.Any())
+                {
+                    _authContext.Set<TraningEntity>().RemoveRange(obsoletedTrainings);
+                }
+            }
+
+            userInfoEnity.Tranings.ForEach(p => { _authContext.Set<TraningEntity>().AddOrUpdate(p); });
             await _authContext.SaveChangesAsync();
         }
 

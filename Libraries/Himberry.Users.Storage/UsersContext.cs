@@ -8,6 +8,7 @@ namespace Himberry.Users.Storage
     public sealed class UsersContext : IdentityDbContext<IdentityUser>
     {
         public DbSet<UserInfoEntity> UserInfo { get; set; }
+        public DbSet<TraningEntity> Tranings { get; set; }
 
         public UsersContext() : base("usersDbConnectionString")
         { }

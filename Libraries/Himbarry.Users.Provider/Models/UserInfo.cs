@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Himbarry.Users.Provider.Interfaces.Enums;
 using Himbarry.Users.Provider.Interfaces.Exceptions;
@@ -23,7 +25,7 @@ namespace Himbarry.Users.Provider.Models
         private float _height;
         private TypeWork _typeWork;
         private Purpose _purpose;
-        private Traning _traning;
+        private List<Traning> _tranings = new List<Traning>();
         private int _sleepTime;
         private int _workTime;
         private int _activeTime;
@@ -35,7 +37,7 @@ namespace Himbarry.Users.Provider.Models
 
         private bool IsChanged
         {
-            get { return _isChanged || (_traning != null && _traning.isChanged); }
+            get { return _isChanged || (_tranings != null && _tranings.Any(p => p.isChanged)); }
         }
         public string UserId { get; set; }
         public string FirstName
@@ -147,11 +149,11 @@ namespace Himbarry.Users.Provider.Models
                 }
             }
         }
-        public ITraning Traning
+        public IReadOnlyCollection<ITraning> Tranings
         {
             get
             {
-                return _traning;
+                return _tranings;
             }
         }
         public int SleepTime
@@ -223,12 +225,20 @@ namespace Himbarry.Users.Provider.Models
             _userDataManager = userDataManager;
         }
 
-        public void SetTraining(int count, TimeSpan avgDuration, Intensity intensity)
+        public void AddTraining(DayOfWeek dayOfWeek, TimeSpan avgDuration, Intensity intensity)
         {
-            _traning = _traning ?? new Traning();
-            _traning.Count = count;
-            _traning.AvgDuration = avgDuration;
-            _traning.Intensity = intensity;
+            var training = _tranings.FirstOrDefault(p => p.DayOfWeek == dayOfWeek);
+            if (training == null)
+            {
+                training = new Traning(UserId, dayOfWeek, avgDuration, intensity);
+            }
+            else
+            {
+                training.AvgDuration = avgDuration;
+                training.Intensity = intensity;
+            }
+
+            _tranings.Add(training);
         }
 
         internal async Task SaveAsync()
@@ -242,6 +252,7 @@ namespace Himbarry.Users.Provider.Models
                 }
                 var userDataModel = ConvertToDataModel();
                 await _userDataManager.SaveUserInfoAsync(userDataModel);
+                _tranings.ForEach(p => { p.isChanged = false; });
                 _isChanged = false;
             }
         }

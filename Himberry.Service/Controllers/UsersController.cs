@@ -54,12 +54,10 @@ namespace Himberry.Service.Controllers
                 user.UserInfo.PassiveTime = userInfoIncomingContract.DistributedTime.Passive;
                 user.UserInfo.SleepTime = userInfoIncomingContract.DistributedTime.Sleep;
                 user.UserInfo.WorkTime = userInfoIncomingContract.DistributedTime.Work;
-                if (userInfoIncomingContract.Traning != null)
+                foreach (var traning in userInfoIncomingContract.Tranings)
                 {
-                    var intensity =
-                        Converter.Convert<Intensity, IntensityContract>(userInfoIncomingContract.Traning.Intensity);
-                    user.UserInfo.SetTraining(userInfoIncomingContract.Traning.Count,
-                        userInfoIncomingContract.Traning.AvgDuration, intensity);
+                    var intensity = Converter.Convert<Intensity, IntensityContract>(traning.Intensity);
+                    user.UserInfo.AddTraining(traning.DayOfWeek, traning.AvgDuration, intensity);
                 }
 
                 await user.SaveAsync();

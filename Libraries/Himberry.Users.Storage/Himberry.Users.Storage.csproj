@@ -47,6 +47,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\TraningEntity.cs" />
     <Compile Include="Entities\UserInfoEntity.cs" />
     <Compile Include="Managers\UserDataManager.cs" />
     <Compile Include="Migrations\Configuration.cs" />

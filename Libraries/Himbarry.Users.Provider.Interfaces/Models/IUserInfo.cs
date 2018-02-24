@@ -1,5 +1,6 @@
 ﻿using Himbarry.Users.Provider.Interfaces.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace Himbarry.Users.Provider.Interfaces.Models
 {
@@ -12,13 +13,13 @@ namespace Himbarry.Users.Provider.Interfaces.Models
         Gender Gender { get; set; }
         TypeWork TypeWork { get; set; }
         Purpose Purpose { get; set; }
-        ITraning Traning { get; }
+        IReadOnlyCollection<ITraning> Tranings { get; }
 
         int SleepTime { get; set; }
         int WorkTime { get; set; }
         int ActiveTime { get; set; }
         int PassiveTime { get; set; }
 
-        void SetTraining(int count, TimeSpan avgDuration, Intensity intensity);
+        void AddTraining(DayOfWeek dayOfWeek, TimeSpan avgDuration, Intensity intensity);
     }
 }
