@@ -34,7 +34,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Handlers\Models\MetabolicCoefficientModel.cs" />
+    <Compile Include="Handlers\PersonNutrisionCalculator.cs" />
     <Compile Include="Managers\UserFactory.cs" />
+    <Compile Include="Models\PersonNutrients.cs" />
     <Compile Include="Models\Traning.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserInfo.cs" />

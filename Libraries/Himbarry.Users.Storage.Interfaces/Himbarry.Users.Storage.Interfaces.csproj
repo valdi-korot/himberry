@@ -38,6 +38,7 @@
     <Compile Include="Enums\IntensityData.cs" />
     <Compile Include="Enums\PurposeData.cs" />
     <Compile Include="Enums\TypeWorkData.cs" />
+    <Compile Include="Exceptions\UserInfoNotFoundDataException.cs" />
     <Compile Include="Exceptions\UserNotFoundDataException.cs" />
     <Compile Include="Exceptions\UserRegisterDataException.cs" />
     <Compile Include="Managers\IUserDataManager.cs" />

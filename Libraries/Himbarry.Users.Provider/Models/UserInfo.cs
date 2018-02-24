@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Himbarry.Users.Provider.Interfaces.Enums;
 using Himbarry.Users.Provider.Interfaces.Exceptions;
 using Himbarry.Users.Provider.Interfaces.Models;
+using Himbarry.Users.Storage.Interfaces.Enums;
 using Himbarry.Users.Storage.Interfaces.Managers;
 using Himbarry.Users.Storage.Interfaces.Models;
 using Himberry.Common.Helpers;
@@ -225,6 +226,24 @@ namespace Himbarry.Users.Provider.Models
             _userDataManager = userDataManager;
         }
 
+        public UserInfo(UserInfoDataModel userInfoDataModel, IUserDataManager userDataManager)
+        {
+            _userDataManager = userDataManager;
+            UserId = userInfoDataModel.UserId;
+            _firstName = userInfoDataModel.FirstName;
+            _birthDay = userInfoDataModel.BirthDay;
+            _weight = userInfoDataModel.Weight;
+            _height = userInfoDataModel.Height;
+            _gender = Converter.Convert<Gender,GenderData>(userInfoDataModel.Gender);
+            _typeWork = Converter.Convert<TypeWork, TypeWorkData>(userInfoDataModel.TypeWork);
+            _purpose = Converter.Convert<Purpose, PurposeData>(userInfoDataModel.Purpose);
+            _traning = Converter.Convert<Traning, TraningDataModel>(userInfoDataModel.Traning);
+            _sleepTime = userInfoDataModel.SleepTime;
+            _activeTime = userInfoDataModel.ActiveTime;
+            _passiveTime = userInfoDataModel.PassiveTime;
+            _workTime = userInfoDataModel.WorkTime;
+        }
+
         public void AddTraining(DayOfWeek dayOfWeek, TimeSpan avgDuration, Intensity intensity)
         {
             var training = _tranings.FirstOrDefault(p => p.DayOfWeek == dayOfWeek);
@@ -257,6 +276,13 @@ namespace Himbarry.Users.Provider.Models
             }
         }
 
+        public IPersonNutrients CalculateNutrients(DateTime date)
+        {
+            throw new NotImplementedException();
+        }
+
+        #region Helpers
+
         private UserInfoDataModel ConvertToDataModel()
         {
             var dataModel = Converter.Convert<UserInfoDataModel, UserInfo>(this);
@@ -267,5 +293,7 @@ namespace Himbarry.Users.Provider.Models
             var result = 24 == ActiveTime + PassiveTime + SleepTime + WorkTime;
             return result;
         }
+
+        #endregion
     }
 }

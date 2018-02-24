@@ -9,5 +9,6 @@ namespace Himbarry.Users.Storage.Interfaces.Managers
         Task<UserDataModel> GetUserAsync(string userName, string password);
         Task<UserDataModel> GetUserAsync(string userId);
         Task SaveUserInfoAsync(UserInfoDataModel userInfoDataModel);
+        Task<UserInfoDataModel> GetUserInfoAsync(string userId);
     }
 }

@@ -21,5 +21,6 @@ namespace Himbarry.Users.Provider.Interfaces.Models
         int PassiveTime { get; set; }
 
         void AddTraining(DayOfWeek dayOfWeek, TimeSpan avgDuration, Intensity intensity);
+        IPersonNutrients CalculateNutrients(DateTime date);
     }
 }

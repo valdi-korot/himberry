@@ -85,6 +85,17 @@ namespace Himberry.Users.Storage.Managers
             return ConvertUserIdentityToDataModel(user);
         }
 
+        public async Task<UserInfoDataModel> GetUserInfoAsync(string userId)
+        {
+            var userInfo = await _authContext.UserInfo.FirstOrDefaultAsync(x => x.UserId == userId);
+            if (userInfo == null)
+            {
+                throw new UserInfoNotFoundDataException();
+            }
+            var result = Converter.Convert<UserInfoDataModel, UserInfoEntity>(userInfo);
+            return result;
+        }
+
         private UserDataModel ConvertUserIdentityToDataModel(IdentityUser user)
         {
             return new UserDataModel
