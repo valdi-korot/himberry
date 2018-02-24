@@ -36,7 +36,9 @@ namespace Himbarry.Users.Provider.Models
             Email = user.Email;
             UserId = user.UserId;
             _userDataManager = userDataManager;
-            _userInfo = new UserInfo(UserId, _userDataManager);
+            var userInfoDataModel = _userDataManager.GetUserInfoAsync(UserId);
+            userInfoDataModel.Wait();
+            _userInfo = new UserInfo(userInfoDataModel.Result, _userDataManager);
         }
 
         public async Task SaveAsync()

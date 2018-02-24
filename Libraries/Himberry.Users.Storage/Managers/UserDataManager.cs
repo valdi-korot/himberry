@@ -87,7 +87,7 @@ namespace Himberry.Users.Storage.Managers
 
         public async Task<UserInfoDataModel> GetUserInfoAsync(string userId)
         {
-            var userInfo = await _authContext.UserInfo.FirstOrDefaultAsync(x => x.UserId == userId);
+            var userInfo = _authContext.UserInfo.Include(p => p.Tranings).FirstOrDefault(x => x.UserId == userId);
             if (userInfo == null)
             {
                 throw new UserInfoNotFoundDataException();

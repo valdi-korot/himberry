@@ -234,10 +234,10 @@ namespace Himbarry.Users.Provider.Models
             _birthDay = userInfoDataModel.BirthDay;
             _weight = userInfoDataModel.Weight;
             _height = userInfoDataModel.Height;
-            _gender = Converter.Convert<Gender,GenderData>(userInfoDataModel.Gender);
+            _gender = Converter.Convert<Gender, GenderData>(userInfoDataModel.Gender);
             _typeWork = Converter.Convert<TypeWork, TypeWorkData>(userInfoDataModel.TypeWork);
             _purpose = Converter.Convert<Purpose, PurposeData>(userInfoDataModel.Purpose);
-            _traning = Converter.Convert<Traning, TraningDataModel>(userInfoDataModel.Traning);
+            _tranings = userInfoDataModel.Tranings.Select(p => new Traning(p)).ToList();
             _sleepTime = userInfoDataModel.SleepTime;
             _activeTime = userInfoDataModel.ActiveTime;
             _passiveTime = userInfoDataModel.PassiveTime;
@@ -250,14 +250,13 @@ namespace Himbarry.Users.Provider.Models
             if (training == null)
             {
                 training = new Traning(UserId, dayOfWeek, avgDuration, intensity);
+                _tranings.Add(training);
             }
             else
             {
                 training.AvgDuration = avgDuration;
                 training.Intensity = intensity;
             }
-
-            _tranings.Add(training);
         }
 
         internal async Task SaveAsync()

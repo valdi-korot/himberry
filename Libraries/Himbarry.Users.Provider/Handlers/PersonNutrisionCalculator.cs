@@ -8,7 +8,7 @@ namespace Himbarry.Users.Provider.Handlers
 {
     public sealed class PersonNutrisionCalculator
     {
-        private int _basicMetabolicRate;
+        private double _basicMetabolicRate;
         private IUserInfo _userInfo;
         private DateTime _date;
 
@@ -20,20 +20,18 @@ namespace Himbarry.Users.Provider.Handlers
 
         public IPersonNutrients Calculate()
         {
-            InitBasicMetabolicRate();
+            CalculateBasicMetabolicRate();
             return new PersonNutrients();
         }
 
-        private void InitBasicMetabolicRate()
+        private void CalculateBasicMetabolicRate()
         {
-            int Age = DateTime.Now.Year - _userInfo.BirthDay.Year;
-            float Height = _userInfo.Height;
-            float Weight = _userInfo.Weight;
+            int age = DateTime.Now.Year - _userInfo.BirthDay.Year;
+            var coefficient = GetCoefficient(age, _userInfo.Gender);
 
-            if (Age >= 10 || Age <= 18)
-            {
-                _basicMetabolicRate = Convert.ToInt32(16.6 * Height + 77 * Weight + 572);
-            }
+            _basicMetabolicRate = coefficient.HeightCoefficient * _userInfo.Height
+                                  + coefficient.WeightCoefficient * _userInfo.Weight
+                                  + coefficient.IncrementalCoefficient;
         }
 
         private MetabolicCoefficientModel GetCoefficient(int age, Gender gender)
@@ -57,7 +55,7 @@ namespace Himbarry.Users.Provider.Handlers
                         WeightCoefficient = 15.4,
                         HeightCoefficient = 27,
                         IncrementalCoefficient = 717
-                        
+
                     };
                 }
             }

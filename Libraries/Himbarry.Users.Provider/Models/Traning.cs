@@ -1,6 +1,7 @@
 ﻿using System;
 using Himbarry.Users.Provider.Interfaces.Enums;
 using Himbarry.Users.Provider.Interfaces.Models;
+using Himbarry.Users.Storage.Interfaces.Enums;
 using Himbarry.Users.Storage.Interfaces.Models;
 using Himberry.Common.Helpers;
 
@@ -61,6 +62,14 @@ namespace Himbarry.Users.Provider.Models
             }
         }
 
+        public Traning(TraningDataModel traningDataModel)
+        {
+            UserId = traningDataModel.UserId;
+            _dayOfWeek = traningDataModel.DayOfWeek;
+            _avgDuration = traningDataModel.AvgDuration;
+            _intensity = Converter.Convert<Intensity, IntensityData>(traningDataModel.Intensity);
+        }
+
         internal Traning(string userId, DayOfWeek dayOfWeek, TimeSpan avgDuration, Intensity intensity)
         {
             UserId = userId;
@@ -69,11 +78,5 @@ namespace Himbarry.Users.Provider.Models
             _intensity = intensity;
             isChanged = true;
         }
-
-        //public TraningDataModel Convert()
-        //{
-        //    var result = Converter.Convert<TraningDataModel, Traning>(this);
-        //    return result;
-        //}
     }
 }
