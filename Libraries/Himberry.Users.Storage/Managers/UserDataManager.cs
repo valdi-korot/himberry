@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using Himbarry.Users.Storage.Interfaces.Managers;
@@ -57,18 +58,18 @@ namespace Himberry.Users.Storage.Managers
 
         }
 
-        public async Task SaveUserInfoAsync(UserInfoDataModel userInfoDataModel)
+        public async Task SaveUserInfoAsync(UserInfoDataModel userInfoDataModel, IReadOnlyCollection<TraningDataModel> obsoloteTranings)
         {
             var userInfoEnity = Converter.Convert<UserInfoEntity, UserInfoDataModel>(userInfoDataModel);
             _authContext.Set<UserInfoEntity>().AddOrUpdate(userInfoEnity);
-            var userInfo = _authContext.UserInfo.Include(p => p.Tranings).FirstOrDefault(p => p.UserId.Equals(userInfoEnity.UserId, StringComparison.InvariantCultureIgnoreCase));
-            if (userInfo != null)
+            if (obsoloteTranings.Any())
             {
-                var obsoletedTrainings = userInfo.Tranings.Where(p => !userInfoEnity.Tranings.Any(t => t.DayOfWeek == p.DayOfWeek)).ToList();
-                if (obsoletedTrainings.Any())
-                {
-                    _authContext.Set<TraningEntity>().RemoveRange(obsoletedTrainings);
-                }
+                var obsolteTraningEntities = _authContext.UserInfo.Include(p => p.Tranings)
+                    .FirstOrDefault(p => p.UserId.Equals(userInfoEnity.UserId, StringComparison.InvariantCultureIgnoreCase))
+                    ?.Tranings.Where(p => obsoloteTranings.Any(t => t.DayOfWeek.ToString().Equals(p.DayOfWeek, StringComparison.InvariantCultureIgnoreCase)))
+                    .ToList();
+                _authContext.Tranings.RemoveRange(obsolteTraningEntities);
+                _authContext.SaveChanges();
             }
 
             userInfoEnity.Tranings.ForEach(p => { _authContext.Set<TraningEntity>().AddOrUpdate(p); });

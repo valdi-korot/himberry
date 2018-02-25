@@ -38,7 +38,7 @@ namespace Himbarry.Users.Provider.Models
 
         private bool IsChanged
         {
-            get { return _isChanged || (_tranings != null && _tranings.Any(p => p.isChanged)); }
+            get { return _isChanged || (_tranings != null && _tranings.Any(p => p.isChanged || p.isDeleted)); }
         }
         public string UserId { get; set; }
         public string FirstName
@@ -154,7 +154,7 @@ namespace Himbarry.Users.Provider.Models
         {
             get
             {
-                return _tranings;
+                return _tranings.Where(p => !p.isDeleted).ToList();
             }
         }
         public int SleepTime
@@ -259,6 +259,17 @@ namespace Himbarry.Users.Provider.Models
             }
         }
 
+        public void DeleteTrainings(IReadOnlyCollection<ITraning> tranings)
+        {
+            _tranings.ForEach(p =>
+            {
+                if (tranings.Any(t => t.DayOfWeek == p.DayOfWeek))
+                {
+                    p.isDeleted = true;
+                }
+            });
+        }
+
         internal async Task SaveAsync()
         {
             if (IsChanged)
@@ -269,7 +280,9 @@ namespace Himbarry.Users.Provider.Models
                     throw new ScheduleDayTimeNotValidException();
                 }
                 var userDataModel = ConvertToDataModel();
-                await _userDataManager.SaveUserInfoAsync(userDataModel);
+                var obsoloteTrainings = _tranings.Where(p => p.isDeleted).ToList();
+                var obsoleteTrainingsDataModel = Converter.Convert<IReadOnlyCollection<TraningDataModel>, List<Traning>>(obsoloteTrainings);
+                await _userDataManager.SaveUserInfoAsync(userDataModel, obsoleteTrainingsDataModel);
                 _tranings.ForEach(p => { p.isChanged = false; });
                 _isChanged = false;
             }

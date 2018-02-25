@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using Himbarry.Users.Provider.Interfaces.Managers;
@@ -54,6 +55,9 @@ namespace Himberry.Service.Controllers
                 user.UserInfo.PassiveTime = userInfoIncomingContract.DistributedTime.Passive;
                 user.UserInfo.SleepTime = userInfoIncomingContract.DistributedTime.Sleep;
                 user.UserInfo.WorkTime = userInfoIncomingContract.DistributedTime.Work;
+                var obsoloteTrainings = user.UserInfo.Tranings.Where(p =>
+                    userInfoIncomingContract.Tranings.All(t => t.DayOfWeek != p.DayOfWeek)).ToList();
+                user.UserInfo.DeleteTrainings(obsoloteTrainings);
                 foreach (var traning in userInfoIncomingContract.Tranings)
                 {
                     var intensity = Converter.Convert<Intensity, IntensityContract>(traning.Intensity);

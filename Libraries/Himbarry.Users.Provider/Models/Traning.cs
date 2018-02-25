@@ -14,6 +14,7 @@ namespace Himbarry.Users.Provider.Models
         private Intensity _intensity;
 
         internal bool isChanged = false;
+        internal bool isDeleted = false;
 
         public string UserId { get; private set; }
         public DayOfWeek DayOfWeek
