@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Himbarry.Users.Provider.Handlers;
 using Himbarry.Users.Provider.Interfaces.Enums;
 using Himbarry.Users.Provider.Interfaces.Exceptions;
 using Himbarry.Users.Provider.Interfaces.Models;
@@ -290,7 +291,9 @@ namespace Himbarry.Users.Provider.Models
 
         public IPersonNutrients CalculateNutrients(DateTime date)
         {
-            throw new NotImplementedException();
+            PersonNutrisionCalculator calc = new PersonNutrisionCalculator(date, this);
+            var result = calc.Calculate();
+            return result;
         }
 
         #region Helpers

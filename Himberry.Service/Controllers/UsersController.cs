@@ -13,6 +13,8 @@ using Himberry.Service.Contrcts.IncomingContracts.Users;
 using Himberry.Service.Contrcts.IncomingContracts.Users.Enums;
 using log4net;
 using Swashbuckle.Swagger.Annotations;
+using Himberry.Service.Contrcts.IncomingContracts.Handlers;
+using Himbarry.Users.Provider.Interfaces.Models;
 
 namespace Himberry.Service.Controllers
 {
@@ -49,8 +51,7 @@ namespace Himberry.Service.Controllers
                 user.UserInfo.BirthDay = userInfoIncomingContract.BirthDay;
                 user.UserInfo.Gender = Converter.Convert<Gender, GenderContract>(userInfoIncomingContract.Gender);
                 user.UserInfo.Purpose = Converter.Convert<Purpose, PurposeContract>(userInfoIncomingContract.Purpose);
-                user.UserInfo.TypeWork =
-                    Converter.Convert<TypeWork, TypeWorkContract>(userInfoIncomingContract.TypeWork);
+                user.UserInfo.TypeWork = Converter.Convert<TypeWork, TypeWorkContract>(userInfoIncomingContract.TypeWork);
                 user.UserInfo.ActiveTime = userInfoIncomingContract.DistributedTime.Active;
                 user.UserInfo.PassiveTime = userInfoIncomingContract.DistributedTime.Passive;
                 user.UserInfo.SleepTime = userInfoIncomingContract.DistributedTime.Sleep;
@@ -78,6 +79,38 @@ namespace Himberry.Service.Controllers
             catch (ScheduleDayTimeNotValidException)
             {
                 return BadRequest("ScheduleDayTime");
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("SaveUserInfo ", ex);
+                return InternalServerError();
+            }
+        }
+
+        [HttpGet]
+        [Route("PersonNutrients")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, "Incoming contract is not valid")]
+        [SwaggerResponse(HttpStatusCode.NotFound, "User not found")]
+        public async Task<IHttpActionResult> GetPersonNutrients(DateTime date)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                var user = await _userFactory.GetUser(User.Identity.GetUserId<string>());
+                var userCalories = user.UserInfo.CalculateNutrients(date);
+                var result = Converter.Convert<PersonNutrietsContract,IPersonNutrients>(userCalories);
+                return Ok(result);
+            }
+            catch (UserNotFoundException)
+            {
+                return NotFound();
+            }
+            catch(MetabolicCoefficientCalculateException)
+            {
+                return BadRequest("Data not correct");
             }
             catch (Exception ex)
             {
