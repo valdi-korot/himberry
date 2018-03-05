@@ -39,6 +39,7 @@
     <Compile Include="Enums\Purpose.cs" />
     <Compile Include="Enums\TypeWork.cs" />
     <Compile Include="Exceptions\FirstNameNotValidException.cs" />
+    <Compile Include="Exceptions\MetabolicCoefficientCalculateException.cs" />
     <Compile Include="Exceptions\ScheduleDayTimeNotValidException.cs" />
     <Compile Include="Exceptions\UserNotFoundException.cs" />
     <Compile Include="Exceptions\UserRegisterException.cs" />

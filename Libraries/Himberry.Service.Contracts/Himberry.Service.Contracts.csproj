@@ -38,6 +38,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IncomingContracts\Handlers\PersonNutrietsContract.cs" />
     <Compile Include="IncomingContracts\Users\DistributedTimeDayContract.cs" />
     <Compile Include="IncomingContracts\Users\Enums\GenderContract.cs" />
     <Compile Include="IncomingContracts\Users\Enums\IntensityContract.cs" />

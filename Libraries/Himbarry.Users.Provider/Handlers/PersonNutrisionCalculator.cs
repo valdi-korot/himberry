@@ -13,6 +13,14 @@ namespace Himbarry.Users.Provider.Handlers
         private IUserInfo _userInfo;
         private DateTime _date;
 
+        private double HouerMetabolicRate
+        {
+            get
+            {
+                return _basicMetabolicRate / 24;
+            }
+        }
+
         public PersonNutrisionCalculator(DateTime date, IUserInfo userInfo)
         {
             _date = date;
@@ -24,6 +32,8 @@ namespace Himbarry.Users.Provider.Handlers
             CalculateBasicMetabolicRate();
             return new PersonNutrients();
         }
+
+        #region CalcBasicMetabolicRate
 
         private void CalculateBasicMetabolicRate()
         {
@@ -179,6 +189,13 @@ namespace Himbarry.Users.Provider.Handlers
                 }
             }
             throw new MetabolicCoefficientCalculateException();
+        }
+
+        #endregion
+
+        private void CalcTotalMetabolicRate()
+        {
+
         }
     }
 }
